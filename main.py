@@ -38,6 +38,24 @@ async def run_userbot():
     except Exception as e:
         print(f"❌ Ошибка при запуске юзербота: {e}")
 
+from pyrogram import Client, filters
+
+async def run_userbot():
+    try:
+        await userbot.start()
+        print("🤖 Moon-Userbot успешно запущен!")
+
+        # ===== ДОБАВЛЯЕМ ОБРАБОТЧИК КОМАНД =====
+        @userbot.on_message(filters.command("ping", prefixes="."))
+        async def ping_command(client, message):
+            await message.reply_text("🏓 Pong!")
+
+        # Здесь будут другие обработчики (для /click, /schedule и т.д.)
+
+        await asyncio.Event().wait()  # Бесконечное ожидание
+    except Exception as e:
+        print(f"❌ Ошибка при запуске юзербота: {e}")
+
 # ===== Запускаем FastAPI и юзербота вместе =====
 @app.on_event("startup")
 async def startup_event():
